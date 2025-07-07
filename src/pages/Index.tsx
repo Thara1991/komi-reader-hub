@@ -1,13 +1,42 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from "react";
+import ComicsLibrary from "@/components/ComicsLibrary";
+import ComicReader from "@/components/ComicReader";
+import { Comic } from "@/types/comic";
 
 const Index = () => {
+  const [selectedComic, setSelectedComic] = useState<Comic | null>(null);
+  const [isReading, setIsReading] = useState(false);
+
+  const handleComicSelect = (comic: Comic) => {
+    setSelectedComic(comic);
+    setIsReading(true);
+  };
+
+  const handleCloseReader = () => {
+    setIsReading(false);
+    setSelectedComic(null);
+  };
+
+  const handlePageChange = (pageNumber: number) => {
+    if (selectedComic) {
+      // Update the comic's current page
+      // In a real app, this would persist to local storage or database
+      console.log(`Updated ${selectedComic.title} to page ${pageNumber}`);
+    }
+  };
+
+  if (isReading && selectedComic) {
+    return (
+      <ComicReader
+        comic={selectedComic}
+        onClose={handleCloseReader}
+        onPageChange={handlePageChange}
+      />
+    );
+  }
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
-    </div>
+    <ComicsLibrary onComicSelect={handleComicSelect} />
   );
 };
 
