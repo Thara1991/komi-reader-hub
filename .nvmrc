@@ -1,0 +1,8 @@
+18
+# This project requires Node.js 18+
+# 
+# BEFORE running any npm scripts:
+# 1. Run: nvm use 18
+# 2. Then run: npm run [script-name]
+#
+# The scripts will check your Node version and warn if it's wrong
